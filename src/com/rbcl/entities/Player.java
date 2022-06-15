@@ -134,7 +134,8 @@ public class Player extends Entity {
 		}
 		
 		if(this.life <= 0) {
-			this.life = 0;
+			System.out.println("Você morreu!");
+			System.exit(0);
 		}
 		
 	}

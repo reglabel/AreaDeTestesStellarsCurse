@@ -53,6 +53,7 @@ public class Enemy extends Entity{
 				}
 			} else {
 				Game.player.life -= atck;
+				System.out.println("Jogador atacado! Vida atual: "+Game.player.life+" pontos.");
 				Game.player.isDamaged = true;
 				
 			}
@@ -61,6 +62,7 @@ public class Enemy extends Entity{
 		
 		if(life <= 0) {
 			destroySelf();
+			System.out.println("Inimigo Destruído!");
 			return;
 		}
 		

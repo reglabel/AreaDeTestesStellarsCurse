@@ -170,15 +170,15 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		int ondas = 0;
 		
 		while(isRunning) {
+			if (player.life == 0) {
+				System.out.println("Você morreu!");
+				System.exit(0);
+			}
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
 			lastTime = now;
 			
 			if(delta >= 1) {
-				if (player.life == 0) {
-					System.out.println("Você morreu!");
-					System.exit(0);
-				}
 				
 				if(player.ammo == 0) {
 					player.ammo = 9999;
@@ -192,21 +192,28 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			if(System.currentTimeMillis() - timer >= 1000) {
 				timer += 1000;
 				tempoJogo+=1;
+				System.out.println("Tempo do jogo: "+tempoJogo+" s.");
 				
 				if(ondas == 0){
+					double veloF = 0.5, veloM = 0.4, veloD=0.3;
+					int corF = 1, corM = 2, corD = 3;
+					int lifeAtckF = 3, lifeAtckM = 5, lifeAtckD = 7;
 					if(tempoJogo==5) {
-						enemies.add(new Enemy(-32-32, Game.HEIGHT-30, 16, 16, 0.3, 1, 3, 3));
-						enemies.add(new Enemy(-64-16, Game.HEIGHT-30, 16, 16, 0.4, 2, 5, 5));
-						enemies.add(new Enemy(-112-32, Game.HEIGHT-30, 16, 16, 0.5, 3, 7, 7));
-						enemies.add(new Enemy(-80-16, Game.HEIGHT-30, 16, 16, 0.3, 1, 3, 3));
-						enemies.add(new Enemy(-96-32, Game.HEIGHT-30, 16, 16, 0.3, 1, 3, 3));
-						
-						enemies.add(new Enemy(Game.WIDTH+80+16, Game.HEIGHT-30, 16, 16, 0.5, 1, 3, 3));
-						enemies.add(new Enemy(Game.WIDTH+112+32, Game.HEIGHT-30, 16, 16, 0.4, 2, 5, 5));
-						enemies.add(new Enemy(Game.WIDTH+64+16, Game.HEIGHT-30, 16, 16, 0.5, 1, 3, 3));
-						enemies.add(new Enemy(Game.WIDTH+96+16, Game.HEIGHT-30, 16, 16, 0.4, 2, 5, 5));
-						enemies.add(new Enemy(Game.WIDTH+32+32, Game.HEIGHT-30, 16, 16, 0.3, 3, 7, 7));
-						
+						enemies.add(new Enemy(-32-32, Game.HEIGHT-30, 16, 16, veloF, corF, lifeAtckF, lifeAtckF));
+						enemies.add(new Enemy(Game.WIDTH+96+16, Game.HEIGHT-30, 16, 16, veloM, corM, lifeAtckM, lifeAtckM));
+						enemies.add(new Enemy(Game.WIDTH+32+32, Game.HEIGHT-30, 16, 16, veloD, corD, lifeAtckD, lifeAtckD));
+					}
+					if(tempoJogo==7) {
+						enemies.add(new Enemy(Game.WIDTH+112+32, Game.HEIGHT-30, 16, 16, veloM, corM, lifeAtckM, lifeAtckM));
+						enemies.add(new Enemy(-96-32, Game.HEIGHT-30, 16, 16, veloF, corF, lifeAtckF, lifeAtckF));
+						enemies.add(new Enemy(Game.WIDTH+64+16, Game.HEIGHT-30, 16, 16, veloF, corF, lifeAtckF, lifeAtckF));
+					}
+					if(tempoJogo==9) {
+						enemies.add(new Enemy(-64-16, Game.HEIGHT-30, 16, 16, veloM, corM, lifeAtckM, lifeAtckM));
+						enemies.add(new Enemy(-80-16, Game.HEIGHT-30, 16, 16, veloF, corF, lifeAtckF, lifeAtckF));
+						enemies.add(new Enemy(Game.WIDTH+80+16, Game.HEIGHT-30, 16, 16, veloF, corF, lifeAtckF, lifeAtckF));
+						enemies.add(new Enemy(-112-32, Game.HEIGHT-30, 16, 16, veloD, corD, lifeAtckD, lifeAtckD));
+
 						ondas+=1;
 					}
 				}
